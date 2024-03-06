@@ -3,8 +3,7 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-class SUtil
-{
+class SUtil {
 	static String getCurrDate()
 	{
 		Calendar cal = Calendar.getInstance();
@@ -14,8 +13,6 @@ class SUtil
 		li_yyyy = cal.get(Calendar.YEAR); li_MM = cal.get(Calendar.MONTH); li_dd = cal.get(Calendar.DATE);
 		li_hour = cal.get(Calendar.HOUR_OF_DAY); li_min = cal.get(Calendar.MINUTE); li_sec = cal.get(Calendar.SECOND);
 
-		//sb.append(Integer.toString(li_yyyy)).append(li_MM<9 ? "0" : "").append(Integer.toString(li_MM + 1)).append(li_dd<10 ? "0" : "").append(Integer.toString(li_dd));
-		//sb.append(li_yyyy+"").append(li_MM<9 ? "0" : "").append(li_MM + 1+"").append(li_dd<10 ? "0" : "").append(li_dd+""); 
 		sb.append(li_yyyy).append(li_MM<9 ? "0" : "").append(li_MM + 1).append(li_dd<10 ? "0" : "").append(li_dd);
 		sb.append(li_hour<10 ? "0" : "").append(li_hour).append(li_min<10 ? "0" : "").append(li_min).append(li_sec<10 ? "0" : "").append(li_sec);
 
@@ -136,8 +133,7 @@ class SUtil
 			byte[] buf_enc = src.getBytes(tgt_encoding);
 
 			System.arraycopy(buf_enc, 0, nb, 0, buf_enc.length);
-			
-		//	return new String(bsrc, encoding_type);
+
 			return nb;
 			
 		}catch(java.io.UnsupportedEncodingException ue){}

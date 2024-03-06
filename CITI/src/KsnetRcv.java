@@ -9,17 +9,13 @@ import java.time.*;
 import java.time.temporal.ChronoUnit;  
 
 public class KsnetRcv extends Thread{
-
-	//public static final long 	SLEEP_TIME	= 120*1000L;
 	public static final long 	SLEEP_TIME	= 30*1000L;
-	public static final long	GAP_TIME	= 180*1000L;
 	public static String 		Encoding 	= null;
-	
 	public static LocalTime startTime = LocalTime.now();
 	public static LocalTime endTime = LocalTime.now();
 
 	public static void main(String[] args) throws Exception {
-//		CUtil.setConfig(args[0]);
+		CUtil.setConfig(args[0]);
 
 		String	recvDir	= CUtil.get("RECV_DIR");
 		String	sendDir	= CUtil.get("SEND_DIR");
@@ -36,7 +32,6 @@ public class KsnetRcv extends Thread{
 		long	curr_sec ;
 		long	time_gap ;
 		boolean rtn;
-//		char[] pgpPasswd = 	PgpPrivatePasswd.toCharArray();
 		
 		Encoding = CUtil.get("ENCODING");
 		if (Encoding == null || Encoding.length() == 0) Encoding = "ksc5601"; 
@@ -133,28 +128,15 @@ public class KsnetRcv extends Thread{
 						
 							//check
 							LUtil.println("BRCV", "SEND FILENAME=["+sendDir+System.getProperty("file.separator")+snedFileNames[i]+"]");
-	
-							//if(!LUtil.checkFileState(sendDir+System.getProperty("file.separator")+snedFileNames[i])){
-							//	LUtil.println("BRCV", "SKIPING...");
-							//	continue;
-							//}
-							//else
-							//{
-							//	LUtil.println("BRCV", "SELECTING...");
 												
 						LUtil.println("BRCV", "SftpSendDir : "+SftpSendDir);
 						LUtil.println("BRCV", "snedFileNames : "+sendDir + System.getProperty("file.separator") + snedFileNames[i]);
 			    			rtn = SFTPSendUtil.upload(SftpSendDir, sendDir + System.getProperty("file.separator") + snedFileNames[i]);
 
-								if (rtn)
-								{
+								if (rtn) {
 									LUtil.fileMove(sendDir, sendDir + System.getProperty("file.separator") + "backup", snedFileNames[i], "Y");
 								}
-								//else
-								//{
-								//	LUtil.fileMove(sendDir, "error", snedFileNames[i]);
-								//}
-			    		//}						
+
 						}
   					LUtil.println("BRCV", "SFTP Send End...");
 	    			SFTPSendUtil.disconnection();
@@ -183,9 +165,6 @@ public class KsnetRcv extends Thread{
 		try{
 			JcoClient3 client = new JcoClient3();
 
-			//String res_msg = client.JCoClientCall(sap_function, svc_type, SUtil.toHanE(req_byte, Encoding), sap_svc_param, sap_in_param, sap_ret_param, null, recv_res_flag);
-
-			//check information
 			LUtil.println("BRCV", "function_nm:["+function_nm+"], file_nm:["+fname_param+"], table_nm:["+tab_param+"], table_col:["+tabcol_param+"], ret_param:["+ret_param+"]");
 			
 			ret_msg = client.JCoClientBatchCall(function_nm, recvDir, fileNames, fpath_param, fname_param, tab_param, tabcol_param, ret_param );
@@ -202,64 +181,5 @@ public class KsnetRcv extends Thread{
 		return rtn;
 	}
 
-}
-class KSFPETimer extends Thread{
- 	public void run()
-	{
-  		try {
-			while(true)
-			{
-				deleteLog();
-				Thread.sleep(10000);
-			}
-  		}catch (Exception e) {
-  			e.printStackTrace();
-  		}
-	}
- 	static String SS_LOG_HOME  = null;
- 	static long   SL_LOG_DEL_MILLIS = 0;
- 	private void deleteLog(){
-  		String fnm = "deleteLog";
-
-  		long cmillis = System.currentTimeMillis();
-
-  		if ((cmillis - SL_LOG_DEL_MILLIS) < 86400000L) return;
-  		if (null == SS_LOG_HOME)
-  		{
-  			SS_LOG_HOME = CUtil.get("USED_DIR");
-  			if (null == SS_LOG_HOME)
-  			{
-  				LUtil.println("BRCV", fnm + " ERROR : LOG PATH(USED_DIR) SETTING ERROR(1)!!");
-  				return;
-			}
-  		}
-  		
-  		File dir = new File(SS_LOG_HOME);
-  		if (dir == null || !dir.isDirectory())
-  		{
-  			LUtil.println("BRCV", fnm + " ERROR : LOG PATH(USED_DIR) SETTING ERROR("+SS_LOG_HOME+")!!");
-  			return;
-  		}
-  		
-  		deleteOldFiles(dir, (cmillis-86400000L), true, false);
-  		
- 	}
-
- 	private void deleteOldFiles(File dir, long lastModified, boolean deleteSub, boolean deleteSubDir){
- 		File[] fs = dir.listFiles();
- 		for(int i=0; i<fs.length; i++)
- 		{
- 			if (deleteSub && fs[i].isDirectory()) deleteOldFiles(fs[i], lastModified, true, deleteSubDir);
- 			
- 			if (fs[i].lastModified() < lastModified)
- 			{
- 				if (!fs[i].isDirectory() || deleteSubDir)
- 				{
- 					boolean rtn = fs[i].delete();
-					//LUtil.println("====deleteOldFiles==== [" + rtn + ":"+fs[i].getName()+"]!!");;
- 				}
- 			}
- 		}
- 	}
 }
 

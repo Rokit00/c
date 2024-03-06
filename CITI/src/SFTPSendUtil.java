@@ -29,24 +29,10 @@ import ksnet.sap.RSAKeyPairGenerator;
 
 
 public class  SFTPSendUtil {
- 
     private static Session sessionSend = null;
     private static Channel channelSend = null;
     private static ChannelSftp channelSftpSend = null;
-    /**
-     * 서버와 연결에 필요한 값들을 가져와 초기화 시킴
-     *
-     * @param host
-     *            서버 주소
-     * @param userName
-     *            접속에 사용될 아이디
-     * @param password
-     *            비밀번호
-     * @param port
-     *            포트번호
-     * @param privateKey
-     *            키
-     */
+
     public static boolean init() {
  
         JSch jSch = new JSch();
@@ -59,7 +45,7 @@ public class  SFTPSendUtil {
 						String sftp_password = "";
 
 
-            if(sftp_privateKey != null) {//키가 존재한다면
+            if(sftp_privateKey != null) {//키占쏙옙 占쏙옙占쏙옙占싼다몌옙
 LUtil.println("SFTP ksj:", "ERROR=["+sftp_privateKey+"]");
                 jSch.addIdentity(sftp_privateKey);
 LUtil.println("SFTP ksj2:", "ERROR=["+sftp_privateKey+"]");
@@ -68,7 +54,7 @@ LUtil.println("SFTP ksj2:", "ERROR=["+sftp_privateKey+"]");
  
             sessionSend = jSch.getSession(sftp_userName, sftp_host, Integer.parseInt(sftp_port));
  
-            if(sftp_privateKey == null) {//키가 없다면
+            if(sftp_privateKey == null) {//키占쏙옙 占쏙옙占쌕몌옙
                 sessionSend.setPassword(sftp_password);
             }
  
@@ -91,15 +77,7 @@ LUtil.println("SFTP ksj2:", "ERROR=["+sftp_privateKey+"]");
  
         return true;
     }
- 
-    /**
-     * 하나의 폴더를 생성한다.
-     *
-     * @param dir
-     *            이동할 주소
-     * @param mkdirName
-     *            생상할 폴더명
-     */
+
     public static void mkdir(String dir, String mkdirName) {
  
         try {
@@ -111,15 +89,7 @@ LUtil.println("SFTP ksj2:", "ERROR=["+sftp_privateKey+"]");
             e.printStackTrace();
         }
     }
- 
-    /**
-     * 하나의 파일을 업로드 한다.
-     *
-     * @param dir
-     *            저장시킬 주소(서버)
-     * @param file
-     *            저장할 파일
-     */
+
     public static boolean upload(String dir, String filePath) {
  
         FileInputStream in = null;
@@ -142,16 +112,6 @@ LUtil.println("SFTP ksj2:", "ERROR=["+sftp_privateKey+"]");
         }
     }
 
-    /**
-     * 하나의 파일을 다운로드 한다.
-     *
-     * @param dir
-     *            저장할 경로(서버)
-     * @param downloadFileName
-     *            다운로드할 파일
-     * @param path
-     *            저장될 공간
-     */
 		@SuppressWarnings("unchecked")
     public static void multiDownload(String dir, String path) {
         try {
@@ -161,26 +121,14 @@ LUtil.println("SFTP ksj2:", "ERROR=["+sftp_privateKey+"]");
 	                if (".".equals(entry.getFilename()) || "..".equals(entry.getFilename())) {
 	                    continue;
 	                }
-	                //result.add(path + entry.getFilename());
 	                download(dir, entry.getFilename(), path);
 	            }
 	        }
         } catch (SftpException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
- 
-    /**
-     * 하나의 파일을 다운로드 한다.
-     *
-     * @param dir
-     *            저장할 경로(서버)
-     * @param downloadFileName
-     *            다운로드할 파일
-     * @param path
-     *            저장될 공간
-     */
+
     public static void download(String dir, String downloadFileName, String path) {
         InputStream in = null;
         FileOutputStream out = null;
@@ -188,7 +136,6 @@ LUtil.println("SFTP ksj2:", "ERROR=["+sftp_privateKey+"]");
             channelSftpSend.cd(dir);
             in = channelSftpSend.get(downloadFileName);
         } catch (SftpException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
  
@@ -200,7 +147,6 @@ LUtil.println("SFTP ksj2:", "ERROR=["+sftp_privateKey+"]");
                 out.write(i);
             }
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } finally {
             try {
@@ -209,18 +155,11 @@ LUtil.println("SFTP ksj2:", "ERROR=["+sftp_privateKey+"]");
             } catch (IOException e) {
                 e.printStackTrace();
             }
- 
         }
- 
     }
- 
-    /**
-     * 서버와의 연결을 끊는다.
-     */
+
     public static void disconnection() {
         channelSftpSend.quit();
         sessionSend.disconnect();
- 
     }
- 
 }

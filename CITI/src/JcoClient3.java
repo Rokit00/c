@@ -71,19 +71,7 @@ public class JcoClient3
     	StringBuilder	sb	= new StringBuilder();
     	String msg;
     	String ret_msg;
-    	
-    	//check destination infomation
-    	//LUtil.println("JCLI", "["+destination.getAttributes()+"]");
-    	
-    	//System.out.println(destination.getAttributes());
-    	
-    	//LUtil.println("JCLI", "DEBUG JCoClientBatchCall function_name=["+function_name+"]");
-    	//LUtil.println("JCLI", "DEBUG JCoClientBatchCall file_name=["+file_name+"]");
-    	//LUtil.println("JCLI", "DEBUG JCoClientBatchCall fname_param=["+fname_param+"]");
-    	//LUtil.println("JCLI", "DEBUG JCoClientBatchCall tab_param=["+tab_param+"]");
-    	//LUtil.println("JCLI", "DEBUG JCoClientBatchCall tabcol_param=["+tabcol_param+"]");
-    	//LUtil.println("JCLI", "DEBUG JCoClientBatchCall ret_param=["+ret_param+"]");
-    	
+
     	//remote function call
     	JCoFunction function = destination.getRepository().getFunction(function_name);
     	

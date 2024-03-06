@@ -11,16 +11,12 @@ class LUtil
 	static String  LOG_DT       = null;
 	static String  LOG_FILE     = null;
 
-	private static synchronized boolean init()
-	{
-		if (null == LOG_FILE || CUtil.isNew())
-		{
+	private static synchronized boolean init() {
+		if (null == LOG_FILE || CUtil.isNew()) {
 			LOG_DIR     = CUtil.get("LOG_DIR_PATH");
 
 			if (null == LOG_DIR) return false;
-	
 		}
-	
 		return true;
 	}
 
@@ -65,12 +61,11 @@ class LUtil
 		try{
 			if(openFile.exists()){
 				out = new PrintStream(new FileOutputStream(LOG_FILE, true), true);
-			}else{
+			}else {
 				out = new PrintStream(new FileOutputStream(LOG_FILE), true);
 			}
 
-			if (pstr instanceof Throwable)
-			{
+			if (pstr instanceof Throwable) {
 				Throwable tw = (Throwable)pstr;
 				tw.printStackTrace(out);
 				out.println();
@@ -84,8 +79,7 @@ class LUtil
 
 				out.println(sb.toString());
 			}
-		}catch(Exception e)
-		{
+		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
 			try{if (out != null) out.close();}catch(Exception e){};
@@ -110,7 +104,7 @@ class LUtil
 		try{
 			if(openFile.exists()){
 				out = new PrintStream(new FileOutputStream(LOG_FILE, true), true);
-			}else{
+			}else {
 				out = new PrintStream(new FileOutputStream(LOG_FILE), true);
 			}
 
