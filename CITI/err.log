@@ -1,0 +1,20 @@
+com.jcraft.jsch.JSchException: java.net.ConnectException: Connection timed out: connect
+	at com.jcraft.jsch.Util.createSocket(Util.java:349)
+	at com.jcraft.jsch.Session.connect(Session.java:215)
+	at com.jcraft.jsch.Session.connect(Session.java:183)
+	at ksnet.sap.SFTPRecvUtil.init(SFTPRecvUtil.java:66)
+	at ksnet.sap.KsnetRcv.main(KsnetRcv.java:75)
+Caused by: java.net.ConnectException: Connection timed out: connect
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:79)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:606)
+	at java.net.Socket.connect(Socket.java:555)
+	at java.net.Socket.<init>(Socket.java:451)
+	at java.net.Socket.<init>(Socket.java:228)
+	at com.jcraft.jsch.Util.createSocket(Util.java:343)
+	... 4 more

@@ -1,0 +1,227 @@
+package ksnet.sap;
+ 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+import com.jcraft.jsch.Channel;
+import com.jcraft.jsch.ChannelSftp;
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.Session;
+import com.jcraft.jsch.SftpException;
+ 
+public class  SFTPRecvUtil {
+ 
+    private static Session sessionRecv = null;
+ 
+    private static Channel channelRecv = null;
+ 
+    private static ChannelSftp channelSftpRecv = null;
+ 
+    /**
+     * 서버와 연결에 필요한 값들을 가져와 초기화 시킴
+     *
+     * @param host
+     *            서버 주소
+     * @param userName
+     *            접속에 사용될 아이디
+     * @param password
+     *            비밀번호
+     * @param port
+     *            포트번호
+     * @param privateKey
+     *            키
+     */
+    public static boolean init() {
+ 
+        JSch jSch = new JSch();
+        try {
+
+						String sftp_host = CUtil.get("SFTP_HOST");
+						String sftp_port = CUtil.get("SFTP_PORT");
+						String sftp_userName = CUtil.get("SFTP_USERNAME");
+						String sftp_privateKey = CUtil.get("SFTP_PRIVATEKEY");
+						String sftp_password = "";
+
+
+            if(sftp_privateKey != null) {//키가 존재한다면
+LUtil.println("SFTP ksjj1", "1"+sftp_privateKey);
+                jSch.addIdentity(sftp_privateKey);
+LUtil.println("SFTP ksjj2", "1");
+             }
+ 
+            sessionRecv = jSch.getSession(sftp_userName, sftp_host, Integer.parseInt(sftp_port));
+ 
+            if(sftp_privateKey == null) {//키가 없다면
+                sessionRecv.setPassword(sftp_password);
+            }
+ 
+            java.util.Properties config = new java.util.Properties();
+            config.put("StrictHostKeyChecking", "no");
+            sessionRecv.setConfig(config);
+            sessionRecv.connect();
+ LUtil.println("SFTP ksjj3", "connect");
+            channelRecv = sessionRecv.openChannel("sftp");
+            channelRecv.connect();
+	    LUtil.println("SFTP init", "Connect Success!!!");
+            
+        } catch (JSchException e) {
+    			LUtil.println("SFTP init", "ERROR=["+e.getMessage()+"]");
+  				HttpApiUtil.httpApiSend("DAEMON", "VAN", "ERROR", "CONNECT ERROR", "[RECV Init] Init Failed...");
+          e.printStackTrace();
+          return false;
+        }
+ 
+        channelSftpRecv = (ChannelSftp) channelRecv;
+ 
+        return true;
+    }
+ 
+    /**
+     * 하나의 폴더를 생성한다.
+     *
+     * @param dir
+     *            이동할 주소
+     * @param mkdirName
+     *            생상할 폴더명
+     */
+    public static void mkdir(String dir, String mkdirName) {
+ 
+        try {
+          channelSftpRecv.cd(dir);
+          channelSftpRecv.mkdir(mkdirName);
+        } catch (SftpException e) {
+    			LUtil.println("SFTP mkdir", "SFTP ERROR=["+e.getMessage()+"]");
+          e.printStackTrace();
+        } catch (Exception e) {
+    			LUtil.println("SFTP mkdir", "ERROR=["+e.getMessage()+"]");
+           e.printStackTrace();
+        }
+    }
+ 
+    /**
+     * 하나의 파일을 업로드 한다.
+     *
+     * @param dir
+     *            저장시킬 주소(서버)
+     * @param file
+     *            저장할 파일
+     */
+    public static void upload(String dir, String filePath) {
+ 
+        FileInputStream in = null;
+        try {
+						File file = new File(filePath);
+        	
+            in = new FileInputStream(file);
+            channelSftpRecv.cd(dir);
+            channelSftpRecv.put(in, file.getName());
+        } catch (SftpException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                in.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 하나의 파일을 다운로드 한다.
+     *
+     * @param dir
+     *            저장할 경로(서버)
+     * @param downloadFileName
+     *            다운로드할 파일
+     * @param path
+     *            저장될 공간
+     */
+		@SuppressWarnings("unchecked")
+    public static void multiDownload(String dir, String targetDir, String path) {
+        try {
+	        List<ChannelSftp.LsEntry> fileList = channelSftpRecv.ls(dir);
+	        if (fileList != null) {
+	            for (ChannelSftp.LsEntry entry : fileList) {
+	                if (".".equals(entry.getFilename()) || "..".equals(entry.getFilename())) {
+	                    continue;
+	                }
+    							LUtil.println("SFTP multiDownload", "FileName=["+entry.getFilename()+"]");
+	                //result.add(path + entry.getFilename());
+	                download(dir, entry.getFilename(), path);
+
+		            // 다운로드 받은파일 rename
+		            //channelSftpRecv.rename(dir+"\\"+entry.getFilename(), targetDir+"\\"+entry.getFilename());
+		            //channelSftpRecv.rm(dir+"\\"+entry.getFilename());
+	            }
+	        }
+        } catch (SftpException e) {
+            // TODO Auto-generated catch block
+    			LUtil.println("SFTP multiDownload", "ERROR=["+e.getMessage()+"]");
+          e.printStackTrace();
+        }
+    }
+ 
+    /**
+     * 하나의 파일을 다운로드 한다.
+     *
+     * @param dir
+     *            저장할 경로(서버)
+     * @param downloadFileName
+     *            다운로드할 파일
+     * @param path
+     *            저장될 공간
+     */
+    public static void download(String dir, String downloadFileName, String path) {
+        InputStream in = null;
+        FileOutputStream out = null;
+        try {
+            channelSftpRecv.cd(dir);
+            in = channelSftpRecv.get(downloadFileName);
+            
+        } catch (SftpException e) {
+            // TODO Auto-generated catch block
+    			LUtil.println("SFTP download Get", "ERROR=["+e.getMessage()+"]");
+          e.printStackTrace();
+        }
+ 
+        try {
+            out = new FileOutputStream(new File(path+"\\"+downloadFileName));
+            int i;
+ 
+            while ((i = in.read()) != -1) {
+                out.write(i);
+            }
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+    			LUtil.println("SFTP download write", "ERROR=["+e.getMessage()+"]");
+            e.printStackTrace();
+        } finally {
+            try {
+                out.close();
+                in.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+ 
+        }
+ 
+    }
+ 
+    /**
+     * 서버와의 연결을 끊는다.
+     */
+    public static void disconnection() {
+        channelSftpRecv.quit();
+        sessionRecv.disconnect();
+ 
+    }
+ 
+}

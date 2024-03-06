@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:iso:std:iso:20022:tech:xsd:pain.002.001.03">
+    <CstmrPmtStsRpt>
+        <GrpHdr>
+            <MsgId>CITIBANK/20240305-PSR/1</MsgId>
+            <CreDtTm>2024-03-05T21:10:08</CreDtTm>
+            <InitgPty>
+                <Id>
+                    <OrgId>
+                        <BICOrBEI>CITIUS33</BICOrBEI>
+                    </OrgId>
+                </Id>
+            </InitgPty>
+        </GrpHdr>
+        <OrgnlGrpInfAndSts>
+            <OrgnlMsgId>VDACH3300CITI202403060002</OrgnlMsgId>
+            <OrgnlMsgNmId>pain.001.001.03</OrgnlMsgNmId>
+            <OrgnlCreDtTm>2024-03-06T09:09:50</OrgnlCreDtTm>
+            <OrgnlNbOfTxs>1</OrgnlNbOfTxs>
+            <OrgnlCtrlSum>1000</OrgnlCtrlSum>
+            <GrpSts>ACTC</GrpSts>
+            <StsRsnInf>
+                <AddtlInf>ACK - FILE ACCEPTED</AddtlInf>
+            </StsRsnInf>
+        </OrgnlGrpInfAndSts>
+    </CstmrPmtStsRpt>
+</Document>

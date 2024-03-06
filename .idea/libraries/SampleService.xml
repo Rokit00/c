@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SampleService">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/CITI/JavaService-2.0.10/SampleService.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

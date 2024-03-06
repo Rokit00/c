@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?><Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.03">
+ <CstmrCdtTrfInitn>
+  <GrpHdr>
+   <MsgId>VDCBFT3300CITI202403060001</MsgId>
+   <CreDtTm>2024-03-06T09:09:49</CreDtTm>
+   <NbOfTxs>1</NbOfTxs>
+   <CtrlSum>5.00</CtrlSum>
+   <InitgPty>
+    <Nm>KUMHO TIRE(VIETNAM) CO., LTD</Nm>
+   </InitgPty>
+  </GrpHdr>
+  <PmtInf>
+   <PmtInfId>3300VNC01US201202403060001</PmtInfId>
+   <PmtMtd>TRF</PmtMtd>
+   <NbOfTxs>1</NbOfTxs>
+   <CtrlSum>5.00</CtrlSum>
+   <PmtTpInf>
+    <SvcLvl>
+     <Cd>URGP</Cd>
+    </SvcLvl>
+    <LclInstrm>
+     <Prtry>392</Prtry>
+    </LclInstrm>
+   </PmtTpInf>
+   <ReqdExctnDt>2024-03-06</ReqdExctnDt>
+   <Dbtr>
+    <Nm>KUMHO TIRE (VIETNAM) CO LTD</Nm>
+    <PstlAdr>
+     <Ctry>VN</Ctry>
+     <AdrLine>?HochiminVN</AdrLine>
+    </PstlAdr>
+   </Dbtr>
+   <DbtrAcct>
+    <Id>
+     <Othr>
+      <Id>203067011</Id>
+     </Othr>
+    </Id>
+   </DbtrAcct>
+   <DbtrAgt>
+    <FinInstnId>
+     <BIC>CITIVNVX</BIC>
+     <PstlAdr>
+      <Ctry>VN</Ctry>
+     </PstlAdr>
+    </FinInstnId>
+   </DbtrAgt>
+   <CdtTrfTxInf>
+    <PmtId>
+     <EndToEndId>330024030600002</EndToEndId>
+    </PmtId>
+    <Amt>
+     <InstdAmt Ccy="USD">5.00</InstdAmt>
+    </Amt>
+    <ChrgBr>DEBT</ChrgBr>
+    <CdtrAgt>
+     <FinInstnId>
+      <BIC>SHBKVNVX</BIC>
+      <Nm>SHINHAN BANK VIETNAM LIMITED</Nm>
+      <PstlAdr>
+       <Ctry>VN</Ctry>
+      </PstlAdr>
+     </FinInstnId>
+    </CdtrAgt>
+    <Cdtr>
+     <Nm>Kang Young Kye</Nm>
+     <PstlAdr>
+      <Ctry>VN</Ctry>
+      <AdrLine>D-3-CN, KCN My Phuoc 3, Thoi Ho Ben</AdrLine>
+      <AdrLine> Cat, Binh Duong</AdrLine>
+     </PstlAdr>
+    </Cdtr>
+    <CdtrAcct>
+     <Id>
+      <Othr>
+       <Id>700021652817</Id>
+      </Othr>
+     </Id>
+    </CdtrAcct>
+    <RmtInf>
+     <Ustrd>TAM UNG MR.KANG</Ustrd>
+     <Ustrd>SHINHAN BANK VIETNAM LIMITED</Ustrd>
+    </RmtInf>
+   </CdtTrfTxInf>
+  </PmtInf>
+ </CstmrCdtTrfInitn>
+</Document>

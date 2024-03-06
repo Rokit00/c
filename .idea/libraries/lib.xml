@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/CITI/lib/sapjco3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/CITI/lib/bcpg-jdk15on-150.jar!/" />
+      <root url="jar://$PROJECT_DIR$/CITI/lib/bcprov-jdk15on-150.jar!/" />
+      <root url="jar://$PROJECT_DIR$/CITI/lib/jsch-0.1.55.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

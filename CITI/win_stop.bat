@@ -1,0 +1,2 @@
+@net stop KUMHO_CITI_SFTP_RCV_SAP
+@net stop KUMHO_CITI_SFTP_JCO_SVR

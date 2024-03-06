@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:iso:std:iso:20022:tech:xsd:pain.002.001.03">
+<CstmrPmtStsRpt>
+<GrpHdr>
+<MsgId>CITIBANK/20240305-PSR/2</MsgId>
+<CreDtTm>2024-03-05T21:10:32</CreDtTm>
+<InitgPty>
+<Id>
+<OrgId>
+<BICOrBEI>CITIUS33</BICOrBEI>
+</OrgId>
+</Id>
+</InitgPty>
+</GrpHdr>
+<OrgnlGrpInfAndSts>
+<OrgnlMsgId>VDCBFT3300CITI202403060001</OrgnlMsgId>
+<OrgnlMsgNmId>pain.001.001.03</OrgnlMsgNmId>
+<OrgnlCreDtTm>2024-03-06T09:09:49</OrgnlCreDtTm>
+<OrgnlNbOfTxs>1</OrgnlNbOfTxs>
+<NbOfTxsPerSts>
+<DtldNbOfTxs>1</DtldNbOfTxs>
+<DtldSts>RJCT</DtldSts>
+</NbOfTxsPerSts>
+</OrgnlGrpInfAndSts>
+<OrgnlPmtInfAndSts>
+<OrgnlPmtInfId>3300VNC01US201202403060001</OrgnlPmtInfId>
+<TxInfAndSts>
+<OrgnlEndToEndId>330024030600002</OrgnlEndToEndId>
+<TxSts>RJCT</TxSts>
+<StsRsnInf>
+<Orgtr>
+<Nm>CITIDIRECT</Nm>
+</Orgtr>
+<AddtlInf>/RULE_INC_AML/VN has specific requirement for payment authorizations. Please refer to VN FAQ link below f</AddtlInf>
+<AddtlInf>or further guidance on requirements on authorization flow and payment authorizer. AML approved users are </AddtlInf>
+<AddtlInf>required to be re-approved if there's any flow change which related to payment from Vietnam based account</AddtlInf>
+<AddtlInf>. Please contact CitiService Vietnam if you need further support.</AddtlInf>
+<AddtlInf>//</AddtlInf>
+</StsRsnInf>
+<AcctSvcrRef>06200791100000001</AcctSvcrRef>
+<OrgnlTxRef>
+<Amt>
+<InstdAmt Ccy="USD">5</InstdAmt>
+</Amt>
+<ReqdExctnDt>2024-03-06</ReqdExctnDt>
+<PmtTpInf>
+<SvcLvl>
+<Cd>URGP</Cd>
+</SvcLvl>
+<LclInstrm>
+<Prtry>392</Prtry>
+</LclInstrm>
+</PmtTpInf>
+<PmtMtd>TRF</PmtMtd>
+<RmtInf>
+<Ustrd>TAM UNG MR.KANG</Ustrd>
+<Ustrd>SHINHAN BANK VIETNAM LIMITED</Ustrd>
+</RmtInf>
+<Dbtr>
+<Nm>KUMHO TIRE (VIETNAM) CO LTD</Nm>
+<PstlAdr>
+<Ctry>VN</Ctry>
+<AdrLine>?HochiminVN</AdrLine>
+</PstlAdr>
+</Dbtr>
+<DbtrAcct>
+<Id>
+<Othr>
+<Id>203067011</Id>
+</Othr>
+</Id>
+<Tp>
+<Prtry>CACC</Prtry>
+</Tp>
+</DbtrAcct>
+<DbtrAgt>
+<FinInstnId>
+<BIC>CITIVNVX</BIC>
+<PstlAdr>
+<Ctry>VN</Ctry>
+</PstlAdr>
+</FinInstnId>
+<BrnchId>
+<Id>718</Id>
+</BrnchId>
+</DbtrAgt>
+<CdtrAgt>
+<FinInstnId>
+<BIC>SHBKVNVX</BIC>
+</FinInstnId>
+<BrnchId>
+<Nm>SHINHAN BANK VIETNAM LIMITED</Nm>
+<PstlAdr>
+<Ctry>VN</Ctry>
+</PstlAdr>
+</BrnchId>
+</CdtrAgt>
+<Cdtr>
+<Nm>Kang Young Kye</Nm>
+</Cdtr>
+<CdtrAcct>
+<Id>
+<Othr>
+<Id>700021652817</Id>
+</Othr>
+</Id>
+<Tp>
+<Prtry>CACC</Prtry>
+</Tp>
+</CdtrAcct>
+</OrgnlTxRef>
+</TxInfAndSts>
+</OrgnlPmtInfAndSts>
+</CstmrPmtStsRpt>
+</Document>
